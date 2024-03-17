@@ -8,7 +8,7 @@ const Amount = require('../lib/btc/amount');
 
 const ports = {
   main: 8332,
-  testnet: 18332,
+  testnet: 19122,
   regtest: 48332,
   simnet: 18556
 };

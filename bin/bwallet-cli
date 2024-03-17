@@ -7,7 +7,7 @@ const WalletClient = require('../lib/client/wallet');
 
 const ports = {
   main: 8334,
-  testnet: 18334,
+  testnet: 19124,
   regtest: 48334,
   simnet: 18558
 };
