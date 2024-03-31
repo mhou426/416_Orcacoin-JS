@@ -9,10 +9,10 @@
  */
 
 const bcoin = require('../..');
-const network = bcoin.Network.get('regtest');
+const network = bcoin.Network.get('testnet');
 
 const peer = bcoin.Peer.fromOptions({
-  network: 'regtest',
+  network: 'testnet',
   agent: 'my-subversion',
   hasWitness: () => {
     return false;
