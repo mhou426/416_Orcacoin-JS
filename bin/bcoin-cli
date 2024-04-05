@@ -238,6 +238,7 @@ class CLI {
         await this.getCoin();
         break;
       case 'block':
+        this.log("working")
         await this.getBlock();
         break;
       case 'header':
