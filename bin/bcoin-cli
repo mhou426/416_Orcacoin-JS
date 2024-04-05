@@ -83,12 +83,12 @@ class CLI {
 
   async getBlock() {
     let hash = this.config.str(0, '');
-
+    this.log("working")
     if (hash.length !== 64)
       hash = parseInt(hash, 10);
 
     const block = await this.client.getBlock(hash);
-
+    // trace this
     if (!block) {
       this.log('Block not found.');
       return;
