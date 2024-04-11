@@ -50,6 +50,12 @@ const miner = new bcoin.Miner({
   console.log(result);
 })();
 
+// (async () => {
+//   // Timeout error
+//   const result = await client.execute('generate', [ 1 ]);
+//   console.log(result);
+// })();
+
 async function mineBlock() {
   // Instantiate a new bcoin node client
   // const client = new NodeClient({
@@ -69,16 +75,23 @@ async function mineBlock() {
   await miner.open();
 
 
-    // Create a Cpu miner job
-  // const job = await miner.createJob();
+  // Create a Cpu miner job
+  const job = await miner.createJob();
 
+  console.log("got job")
+
+  // mempool tip/chain tip hash
   //   // run miner
-  // const block = await job.mineAsync();
+  const block = await job.mineAsync();
+  console.log('Adding %s to the blockchain.', block.rhash());
+  console.log(block);
+  await chain.add(block);
+  console.log('Added block!');
 
   // Wait for the miner to find a block
-  miner.on('block', (block) => {
-    console.log('Block mined:', block);
-  });
+  // miner.on('block', (block) => {
+  //   console.log('Block mined:', block);
+  // });
 }
 
 mineBlock().catch(console.error);

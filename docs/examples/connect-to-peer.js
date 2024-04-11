@@ -19,7 +19,7 @@ const peer = bcoin.Peer.fromOptions({
   }
 });
 
-const addr = bcoin.net.NetAddress.fromHostname(process.argv[2], 'regtest');
+const addr = bcoin.net.NetAddress.fromHostname(process.argv[2], 'testnet');
 
 console.log(`Connecting to ${addr.hostname}`);
 

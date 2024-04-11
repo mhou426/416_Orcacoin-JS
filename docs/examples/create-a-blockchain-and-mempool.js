@@ -4,7 +4,7 @@ const bcoin = require('../..');
 
 // Default network (so we can avoid passing
 // the `network` option into every object below.)
-bcoin.set('testnet');
+bcoin.set('regtest');
 
 // Start up a blockchain, mempool, and miner using in-memory
 // databases (stored in a red-black tree instead of on-disk).
@@ -12,7 +12,7 @@ const blocks = bcoin.blockstore.create({
   memory: true
 });
 const chain = new bcoin.Chain({
-  network: 'testnet',
+  network: 'regtest',
   memory: true,
   blocks: blocks
 });
