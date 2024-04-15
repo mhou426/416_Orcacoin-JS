@@ -1,7 +1,6 @@
-// const { NodeClient, Miner } = require('bcoin');
 const bcoin = require('../..');
-// const {NodeClient, Network} = require('bcoin');
 const network = bcoin.Network.get('testnet');
+const crypto = require('crypto');
 
 const clientOptions = {
   network: network.type,
@@ -10,6 +9,16 @@ const clientOptions = {
 }
 
 const client = new bcoin.NodeClient(clientOptions);
+
+// function littleEndian(value) {
+//   let hex = value.toString(16);
+//   return '0'.repeat(8 - hex.length) + hex.match(/.{1,2}/g).reverse().join('');
+// }
+
+// // Function to swap endianness of a hex string
+// function swapOrder(hex) {
+//   return hex.match(/.{1,2}/g).reverse().join('');
+// }
 
 // (async () => {
 //   const result = await client.execute('getblockchaininfo');
@@ -45,10 +54,10 @@ const miner = new bcoin.Miner({
   useWorkers: true
 });
 
-(async () => {
-  const result = await client.execute('getmempoolinfo');
-  console.log(result);
-})();
+// (async () => {
+//   const result = await client.execute('getmempoolinfo');
+//   console.log(result);
+// })();
 
 // (async () => {
 //   // Timeout error
@@ -57,36 +66,63 @@ const miner = new bcoin.Miner({
 // })();
 
 async function mineBlock() {
-  // Instantiate a new bcoin node client
-  // const client = new NodeClient({
-  //   network: 'testnet', // or 'main'
-  //   apiKey: 'your-api-key', // if necessary
-  // });
 
-  // // Connect to the Bitcoin network
-  // await client.open();
-
-  // Create a new miner instance
   await blocks.open();
   await chain.open();
-
-  // Open the miner (initialize the databases, etc).
-  // Miner will implicitly call `open` on mempool.
   await miner.open();
 
 
   // Create a Cpu miner job
   const job = await miner.createJob();
 
-  console.log("got job")
-
-  // mempool tip/chain tip hash
-  //   // run miner
   const block = await job.mineAsync();
   console.log('Adding %s to the blockchain.', block.rhash());
   console.log(block);
   await chain.add(block);
   console.log('Added block!');
+  console.log(chain)
+
+
+  // const serializedHeader = Buffer.concat([
+  //   Buffer.from(block.version.toString(16), 'hex').reverse(),
+  //   Buffer.from(String(block.prev_block), 'hex').reverse(),
+  //   Buffer.from(String(block.merkle_root), 'hex').reverse(),
+  //   Buffer.from(String(block.timestamp), 'hex').reverse(),
+  //   Buffer.from(String(block.bits), 'hex').reverse(),
+  //   Buffer.from(String(block.nonce), 'hex').reverse()
+  // ]);
+
+  // // Double SHA-256 hash the serialized header
+  // const hash = crypto.createHash('sha256').update(serializedHeader).digest();
+  // const blockHash = crypto.createHash('sha256').update(hash).digest();
+
+  // // Convert the hash to hexadecimal string
+  // const hexBlockHash = blockHash.toString('hex');
+  // console.log(hexBlockHash);
+
+
+
+
+
+  // let version = littleEndian(block.version);
+  // let prevBlockHash = swapOrder(String(block.prevBlock));
+  // // console.log( typeof String(block.prevBlock));
+  // let rootHash = swapOrder(String(block.merkleRoot));
+  // let time = littleEndian(block.time);
+  // let bits = littleEndian(block.bits);
+  // let nonce = littleEndian(block.nonce);
+
+  // let header_hex = version + prevBlockHash + rootHash + time + bits + nonce;
+  // console.log(header_hex);
+
+  // const work = await client.execute('getworklp');
+  // console.log(work);
+  // console.log(work.data);
+
+  // const result = await client.execute('submitblock', [ hexBlockHash ]);
+  // console.log(result);
+  // const result = await client.execute('getblockchaininfo');
+  // console.log(result);
 
   // Wait for the miner to find a block
   // miner.on('block', (block) => {
@@ -95,3 +131,10 @@ async function mineBlock() {
 }
 
 mineBlock().catch(console.error);
+
+
+
+
+
+// Concatenate all values
+
