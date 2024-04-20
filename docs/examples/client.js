@@ -54,6 +54,13 @@ const miner = new bcoin.Miner({
   useWorkers: true
 });
 
+const walletdb = new bcoin.wallet.WalletDB({ memory: true });
+
+const pool = new bcoin.Pool({
+  chain: chain,
+  maxOutbound: 1
+});
+
 // (async () => {
 //   const result = await client.execute('getmempoolinfo');
 //   console.log(result);
@@ -69,7 +76,17 @@ async function mineBlock() {
 
   await blocks.open();
   await chain.open();
+
+
+  await pool.open();
+  await walletdb.open();
+  await pool.connect();
+
   await miner.open();
+
+  const wallet = await walletdb.create();
+  const walletAddress = await wallet.receiveAddress();
+  console.log('Created wallet with address %s', walletAddress);
 
 
   // Create a Cpu miner job
@@ -81,6 +98,28 @@ async function mineBlock() {
   await chain.add(block);
   console.log('Added block!');
   console.log(chain)
+
+  
+
+  // console.log(pool)
+  pool.startSync();
+  
+
+  pool.watchAddress(walletAddress);
+
+
+  pool.on('tx', (tx) => {
+    console.log('Received TX:\n', tx);
+
+    walletdb.addTX(tx);
+    console.log('TX added to wallet DB!');
+  });
+
+  wallet.on('balance', (balance) => {
+    console.log('Balance updated:\n', balance.toJSON());
+  });
+
+  
 
 
   // const serializedHeader = Buffer.concat([
@@ -132,9 +171,4 @@ async function mineBlock() {
 
 mineBlock().catch(console.error);
 
-
-
-
-
-// Concatenate all values
 

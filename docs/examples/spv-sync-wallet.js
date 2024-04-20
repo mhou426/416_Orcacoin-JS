@@ -2,7 +2,7 @@
 
 const bcoin = require('../..');
 
-bcoin.set('regtest');
+bcoin.set('testnet');
 
 // SPV chains only store the chain headers.
 const chain = new bcoin.Chain({

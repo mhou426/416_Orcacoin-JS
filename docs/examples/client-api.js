@@ -2,10 +2,10 @@
 
 const bcoin = require('../..');
 const plugin = bcoin.wallet.plugin;
-const network = bcoin.Network.get('regtest');
+const network = bcoin.Network.get('testnet');
 
 const node = new bcoin.FullNode({
-  network: 'regtest',
+  network: 'testnet',
   memory: true
 });
 
@@ -71,13 +71,13 @@ async function callNodeApi() {
   console.log('Server Info:');
   console.log(info);
 
-  const json = await nodeClient.execute(
-    'getblocktemplate',
-    [{rules: ['segwit']}]
-  );
+  // const json = await nodeClient.execute(
+  //   'getblocktemplate',
+  //   [{rules: ['segwit']}]
+  // );
 
-  console.log('Block Template (RPC):');
-  console.log(json);
+  // console.log('Block Template (RPC):');
+  // console.log(json);
 }
 
 (async () => {
