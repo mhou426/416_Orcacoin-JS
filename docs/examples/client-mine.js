@@ -1,4 +1,4 @@
-const bcoin = require('../..');
+const bcoin = require('../../lib/bcoin');
 const network = bcoin.Network.get('testnet');
 const crypto = require('crypto');
 
@@ -97,7 +97,7 @@ async function mineBlock() {
   console.log(block);
   await chain.add(block);
   console.log('Added block!');
-  console.log(chain)
+  // console.log(chain)
 
 
 
