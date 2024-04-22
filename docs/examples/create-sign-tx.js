@@ -6,11 +6,14 @@ const bcoin = require('../..');
 const assert = require('assert');
 
 (async () => {
-  const master = bcoin.hd.generate();
-  const key = master.derivePath('m/44\'/0\'/0\'/0/0');
+  const master = bcoin.hd.generate(); 
+  const key = master.derivePath('m/44\'/0\'/0\'/0/0'); //bip44
   const keyring = new bcoin.wallet.WalletKey(key.privateKey);
   const cb = new bcoin.MTX();
 
+  console.log(master)
+  console.log(key)
+  console.log(keyring)
   cb.addInput({
     prevout: new bcoin.Outpoint(),
     script: new bcoin.Script(),

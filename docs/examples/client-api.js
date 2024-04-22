@@ -23,10 +23,10 @@ async function fundWallet(wdb, addr) {
   // Coinbase
   const mtx = new bcoin.MTX();
   mtx.addOutpoint(new bcoin.Outpoint(bcoin.consensus.ZERO_HASH, 0));
-  mtx.addOutput(addr, 50460);
-  mtx.addOutput(addr, 50460);
-  mtx.addOutput(addr, 50460);
-  mtx.addOutput(addr, 50460);
+  mtx.addOutput(addr, 50000);
+  // mtx.addOutput(addr, 50460);
+  // mtx.addOutput(addr, 50460);
+  // mtx.addOutput(addr, 50460);
 
   const tx = mtx.toTX();
 
