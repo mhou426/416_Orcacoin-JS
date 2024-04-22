@@ -99,25 +99,25 @@ async function mineBlock() {
   console.log('Added block!');
   console.log(chain)
 
-  
+
 
   // console.log(pool)
-  pool.startSync();
+  // pool.startSync();
   
 
-  pool.watchAddress(walletAddress);
+  // pool.watchAddress(walletAddress);
 
 
-  pool.on('tx', (tx) => {
-    console.log('Received TX:\n', tx);
+  // pool.on('tx', (tx) => {
+  //   console.log('Received TX:\n', tx);
 
-    walletdb.addTX(tx);
-    console.log('TX added to wallet DB!');
-  });
+  //   walletdb.addTX(tx);
+  //   console.log('TX added to wallet DB!');
+  // });
 
-  wallet.on('balance', (balance) => {
-    console.log('Balance updated:\n', balance.toJSON());
-  });
+  // wallet.on('balance', (balance) => {
+  //   console.log('Balance updated:\n', balance.toJSON());
+  // });
 
   
 
