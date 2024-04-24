@@ -19,6 +19,7 @@ const walletClient = new bcoin.WalletClient({
 });
 
 const nodeClient = new bcoin.NodeClient({
+  network: network.type,
   port: network.rpcPort,
   apiKey: 'api-key'
 });
