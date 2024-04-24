@@ -28,7 +28,7 @@ const nodeClient = new bcoin.NodeClient({
 //   memory: true
 // });
 
-client = nodeClient;
+const client = nodeClient;
 
 async function fundWallet(wdb) {
   // Coinbase ==let say coinbase transaction is already created but we are using 
